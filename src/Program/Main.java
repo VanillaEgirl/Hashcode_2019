@@ -13,6 +13,7 @@ public class Main {
     private static final int SAME_TAGS = 1;
     private static final int MIN_WASTE = 2;
     private static final int MAX_INTERESTING = 2;
+    private static final double WEIGHT = 0.33;
     private static final int CHUNK_SIZE = 500;
 
     public static void main(String[] args) {
@@ -124,7 +125,7 @@ public class Main {
             for (Slide slide2 : remainingSlides) {
                 int interesting = currentSlide.howInteresting(slide2);
                 int waste = currentSlide.howWasting(slide2);
-                double matchscore = interesting - ((double)waste)/3;
+                double matchscore = interesting - waste * WEIGHT;
                 if (matchscore > 0) {
                     counter++;
                     bestMatchIndex = slides.indexOf(slide2);
