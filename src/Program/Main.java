@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Main {
 
-    private static final int CHUNK_SIZE = 500;
+    private static final int CHUNK_SIZE = 1000;
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
@@ -93,12 +93,14 @@ public class Main {
         orderedSlides.add(currentSlide);
         remainingSlides.remove(currentSlide);
 
+        int counter = 0;
         while (remainingSlides.size() > 0) {
             int matchScore = 999999;
             int bestMatchIndex = -1;
             for (Slide slide2 : remainingSlides) {
                 int waste = currentSlide.howWasting(slide2);
                 if (waste < 5) {
+                    counter++;
                     bestMatchIndex = slides.indexOf(slide2);
                     break;
                 }
@@ -111,6 +113,7 @@ public class Main {
             orderedSlides.add(currentSlide);
             remainingSlides.remove(currentSlide);
         }
+        System.out.println(counter);
 
         return orderedSlides;
     }
