@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Slide {
-    List<Photo> photos;
+    public List<Photo> photos = new ArrayList<>();
 
     List<String> getTags() {
         List<String> tags = new ArrayList<>();

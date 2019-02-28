@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    public static List<Photo> readLines() {
+    public static List<Photo> readPhotos() {
         List<Photo> photos = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new java.io.FileReader(FilePath.inputPath));
