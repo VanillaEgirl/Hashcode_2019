@@ -1,15 +1,21 @@
 package Program;
 
 import FileHandling.FileReader;
-import FileHandling.FileWriter;
-
-import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<String> lines = FileReader.readLines();
-        System.out.println("Hallo du Schneckli!");
-        FileWriter.writeLines(lines);
+        int[][] matrix = FileReader.readMatrix();
+        System.out.println();
+        printMatrix(matrix);
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

@@ -1,7 +1,7 @@
 package FileHandling;
 
 class FilePath {
-    private static String FILE_NAME = "test";
+    private static String FILE_NAME = "testMatrix";
     //private static String FILE_NAME = "a_example";
     //private static String FILE_NAME = "b_small";
     //private static String FILE_NAME = "c_medium";
