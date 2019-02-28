@@ -14,8 +14,8 @@ public class Main {
     private static final int MIN_WASTE = 2;
     private static final int MAX_INTERESTING = 5;
     private static final double WEIGHT = 2;
-    private static final double MAX_MATCH_SCORE = 2;
-    private static final int CHUNK_SIZE = 500;
+    private static final double MAX_MATCH_SCORE = 6;
+    private static final int CHUNK_SIZE = 1000;
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
@@ -97,11 +97,9 @@ public class Main {
         List<Slide> remainingSlides = new ArrayList<>();
         remainingSlides.addAll(slides);
 
-        int slidesSize = slides.size();
-
-        for (int i = 0; i < slidesSize; i++) {
-            int randomNumber = random.nextInt(slidesSize);
-            Slide currentSlide = slides.get(randomNumber);
+        for (int i = 0; i < slides.size(); i++) {
+            int randomNumber = random.nextInt(remainingSlides.size());
+            Slide currentSlide = remainingSlides.get(randomNumber);
             shuffledSlides.add(currentSlide);
             remainingSlides.remove(currentSlide);
         }
