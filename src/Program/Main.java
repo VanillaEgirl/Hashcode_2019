@@ -9,6 +9,7 @@ import java.util.List;
 public class Main {
 
     private static final int SAME_TAGS = 1;
+    private static final int MAX_WASTE = 2;
     private static final int CHUNK_SIZE = 500;
 
     public static void main(String[] args) {
@@ -100,7 +101,7 @@ public class Main {
             int bestMatchIndex = -1;
             for (Slide slide2 : remainingSlides) {
                 int waste = currentSlide.howWasting(slide2);
-                if (waste < 20) {
+                if (waste <= MAX_WASTE) {
                     counter++;
                     bestMatchIndex = slides.indexOf(slide2);
                     break;
