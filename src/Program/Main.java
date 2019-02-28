@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Main {
 
-    private static final int SAME_TAGS = 1;
-    private static final int MAX_WASTE = 2;
+    private static final int SAME_TAGS = 2;
+    private static final int MIN_WASTE = 18;
     private static final int CHUNK_SIZE = 500;
 
     public static void main(String[] args) {
@@ -97,17 +97,18 @@ public class Main {
 
         int counter = 0;
         while (remainingSlides.size() > 0) {
-            int matchScore = 999999;
+            int matchScore = -1;
             int bestMatchIndex = -1;
             for (Slide slide2 : remainingSlides) {
+                int interesting = currentSlide.howInteresting(slide2);
                 int waste = currentSlide.howWasting(slide2);
-                if (waste <= MAX_WASTE) {
+                if (waste <= MIN_WASTE || interesting > 8) {
                     counter++;
                     bestMatchIndex = slides.indexOf(slide2);
                     break;
                 }
-                if (waste < matchScore) {
-                    matchScore = waste;
+                if (interesting > matchScore) {
+                    matchScore = interesting;
                     bestMatchIndex = slides.indexOf(slide2);
                 }
             }
