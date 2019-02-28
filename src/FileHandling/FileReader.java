@@ -64,4 +64,24 @@ public class FileReader {
 
         return lineMatrix;
     }
+
+    public static void readResources() {
+        try {
+            BufferedReader reader = new BufferedReader(new java.io.FileReader(FilePath.resourcePath));
+
+            String line = reader.readLine();
+
+            while (line != null && !line.isEmpty()) {
+                /*String fractals[] = line.split(" ");
+                shape.y = Integer.parseInt(fractals[0]);
+                shape.x = Integer.parseInt(fractals[1]);*/
+
+                line = reader.readLine();
+            }
+
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

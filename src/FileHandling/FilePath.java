@@ -7,7 +7,7 @@ class FilePath {
     //private static String FILE_NAME = "c_medium";
     //private static String FILE_NAME = "d_big";
 
-    private static String RESOURCE_DIR = "..\\..\\resource\\";
+    private static String RESOURCE_DIR = "resource\\";
 
     private static String RESOURCE_EXT = ".possible";
     private static String INPUT_EXT = ".in";
