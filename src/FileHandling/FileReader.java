@@ -20,6 +20,7 @@ public class FileReader {
                 line = reader.readLine();
                 System.out.println(line);
                 Photo photo = parseLine(line);
+                photo.id = i;
                 photos.add(photo);
             }
 
