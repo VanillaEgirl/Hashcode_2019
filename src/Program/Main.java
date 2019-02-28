@@ -8,7 +8,8 @@ import java.util.List;
 
 public class Main {
 
-    private static final int CHUNK_SIZE = 1000;
+    private static final int SAME_TAGS = 1;
+    private static final int CHUNK_SIZE = 500;
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
@@ -64,7 +65,7 @@ public class Main {
                             minIndex = verticalPhotos.indexOf(photo2);
                         }
                     }
-                    if (sameTags == 0) {
+                    if (sameTags <= SAME_TAGS) {
                         break;
                     }
                 }
@@ -99,7 +100,7 @@ public class Main {
             int bestMatchIndex = -1;
             for (Slide slide2 : remainingSlides) {
                 int waste = currentSlide.howWasting(slide2);
-                if (waste < 5) {
+                if (waste < 20) {
                     counter++;
                     bestMatchIndex = slides.indexOf(slide2);
                     break;
