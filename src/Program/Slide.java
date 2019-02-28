@@ -63,4 +63,23 @@ public class Slide {
 
         return minimum;
     }
+
+    public int howEfficient(Slide slide) {
+        int minimum;
+        int maximum;
+
+        int onlySlide1 = this.differentTagsThan(slide);
+        int onlySlide2 = slide.differentTagsThan(this);
+
+        minimum = sameTags(slide);
+        maximum = minimum;
+
+        if (onlySlide1 < minimum) minimum = onlySlide1;
+        if (onlySlide2 < minimum) minimum = onlySlide2;
+
+        if (onlySlide1 > maximum) maximum = onlySlide1;
+        if (onlySlide2 > maximum) maximum = onlySlide2;
+
+        return maximum - minimum;
+    }
 }
