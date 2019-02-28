@@ -8,11 +8,23 @@ import java.util.List;
 
 public class Main {
 
+    private static final int CHUNK_SIZE = 500;
+
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
         List<Slide> slides = getSlides(photos);
         System.out.println("slides generated");
-        List<Slide> orderedSlides = orderSlides(slides);
+        List<Slide> orderedSlides = new ArrayList<>();
+        int i;
+        for (i = 0; i < slides.size() / CHUNK_SIZE; i++) {
+            List<Slide> slideChunk = slides.subList(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE - 1);
+            orderedSlides.addAll(orderSlides(slideChunk));
+            System.out.println("Done with chunk " + i);
+        }
+        if (i * CHUNK_SIZE < slides.size() - 1) {
+            List<Slide> slideChunk = slides.subList(i * CHUNK_SIZE, slides.size() - 1);
+            orderedSlides.addAll(orderSlides(slideChunk));
+        }
         FileWriter.writeSlideshow(orderedSlides);
     }
 
@@ -80,16 +92,20 @@ public class Main {
         remainingSlides.remove(currentSlide);
 
         while (remainingSlides.size() > 0) {
-            int maxValue = -1;
-            int maxIndex = -1;
+            int matchScore = 999999;
+            int bestMatchIndex = -1;
             for (Slide slide2 : remainingSlides) {
-                int interesting = currentSlide.howInteresting(slide2);
-                if (interesting > maxValue) {
-                    maxValue = interesting;
-                    maxIndex = slides.indexOf(slide2);
+                int waste = currentSlide.howWasting(slide2);
+                if (waste < 5) {
+                    bestMatchIndex = slides.indexOf(slide2);
+                    break;
+                }
+                if (waste < matchScore) {
+                    matchScore = waste;
+                    bestMatchIndex = slides.indexOf(slide2);
                 }
             }
-            currentSlide = slides.get(maxIndex);
+            currentSlide = slides.get(bestMatchIndex);
             orderedSlides.add(currentSlide);
             remainingSlides.remove(currentSlide);
         }
