@@ -64,7 +64,7 @@ public class Slide {
         return minimum;
     }
 
-    public int howEfficient(Slide slide) {
+    public int howWasting(Slide slide) {
         int minimum;
         int maximum;
 
