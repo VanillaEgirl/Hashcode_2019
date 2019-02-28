@@ -1,13 +1,19 @@
 package FileHandling;
 
 class FilePath {
-    private static String INPUT_FILE = "test";
-    //private static String INPUT_FILE = "a_example";
-    //private static String INPUT_FILE = "b_small";
-    //private static String INPUT_FILE = "c_medium";
-    //private static String INPUT_FILE = "d_big";
+    private static String FILE_NAME = "test";
+    //private static String FILE_NAME = "a_example";
+    //private static String FILE_NAME = "b_small";
+    //private static String FILE_NAME = "c_medium";
+    //private static String FILE_NAME = "d_big";
+
+    private static String RESOURCE_DIR = "..\\..\\resource\\";
+
+    private static String RESOURCE_EXT = ".possible";
     private static String INPUT_EXT = ".in";
     private static String OUTPUT_EXT = ".out";
-    static String inputPath = LocalPath.DIR + INPUT_FILE + INPUT_EXT;
-    static String outputPath = LocalPath.DIR + INPUT_FILE + OUTPUT_EXT;
+
+    static String resourcePath = RESOURCE_DIR + FILE_NAME + RESOURCE_EXT;
+    static String inputPath = LocalPath.DIR + FILE_NAME + INPUT_EXT;
+    static String outputPath = LocalPath.DIR + FILE_NAME + OUTPUT_EXT;
 }
