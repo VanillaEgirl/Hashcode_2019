@@ -56,15 +56,17 @@ public class Main {
                     }
                 }
 
-                Slide slide = new Slide();
-                slide.photos.add(photo);
-                photo.alreadyInSlide = true;
                 if (minIndex != -1) {
+                    Slide slide = new Slide();
+                    slide.photos.add(photo);
+                    photo.alreadyInSlide = true;
+
                     Photo photo2 = verticalPhotos.get(minIndex);
                     slide.photos.add(photo2);
                     photo2.alreadyInSlide = true;
+
+                    slides.add(slide);
                 }
-                slides.add(slide);
             }
         }
 
