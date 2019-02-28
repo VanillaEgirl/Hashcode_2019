@@ -5,7 +5,6 @@ import FileHandling.FileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class VerticalMatcher {
     private static final int SAME_TAGS = 0;
