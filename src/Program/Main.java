@@ -38,59 +38,6 @@ public class Main {
         System.out.println(calculateScore(orderedSlides));
     }
 
-    private static List<Slide> getSlides(List<Photo> photos) {
-        List<Slide> slides = new ArrayList<>();
-        List<Photo> verticalPhotos = new ArrayList<>();
-
-        for (Photo photo : photos) {
-            if (photo.horizontal) {
-                Slide slide = new Slide(photo);
-                slides.add(slide);
-            } else {
-                verticalPhotos.add(photo);
-            }
-        }
-
-        List<Slide> verticalSlides = pairVerticalSlides(verticalPhotos);
-        slides.addAll(verticalSlides);
-
-        return slides;
-    }
-
-    private static List<Slide> pairVerticalSlides(List<Photo> verticalPhotos) {
-        List<Slide> slides = new ArrayList<>();
-
-        for (Photo photo : verticalPhotos) {
-            if (!photo.alreadyInSlide) {
-                int minValue = 99999;
-                int minIndex = -1;
-                for (Photo photo2 : verticalPhotos) {
-                    int sameTags = 99999;
-                    if (!photo2.alreadyInSlide) {
-                        sameTags = photo.sameTags(photo2);
-                        if (sameTags < minValue) {
-                            minIndex = verticalPhotos.indexOf(photo2);
-                        }
-                    }
-                    if (sameTags <= SAME_TAGS) {
-                        break;
-                    }
-                }
-
-                if (minIndex != -1) {
-                    Photo photo2 = verticalPhotos.get(minIndex);
-                    Slide slide = new Slide(photo, photo2);
-                    photo.alreadyInSlide = true;
-                    photo2.alreadyInSlide = true;
-
-                    slides.add(slide);
-                }
-            }
-        }
-
-        return slides;
-    }
-
     private static List<Slide> shuffleSlides(List<Slide> slides) {
         List<Slide> shuffledSlides = new ArrayList<>();
 
@@ -132,41 +79,6 @@ public class Main {
                 }
                 if (matchscore > bestMatchScore) {
                     bestMatchScore = matchscore;
-                    bestMatchIndex = slides.indexOf(slide2);
-                }
-            }
-            currentSlide = slides.get(bestMatchIndex);
-            orderedSlides.add(currentSlide);
-            remainingSlides.remove(currentSlide);
-        }
-        System.out.println(counter);
-
-        return orderedSlides;
-    }
-
-    private static List<Slide> orderSlidesSpecial(List<Slide> slides) {
-        List<Slide> orderedSlides = new ArrayList<>();
-
-        List<Slide> remainingSlides = new ArrayList<>();
-        remainingSlides.addAll(slides);
-
-        Slide currentSlide = slides.get(0);
-        orderedSlides.add(currentSlide);
-        remainingSlides.remove(currentSlide);
-
-        int counter = 0;
-        while (remainingSlides.size() > 0) {
-            int matchScore = 999999;
-            int bestMatchIndex = -1;
-            for (Slide slide2 : remainingSlides) {
-                int interesting = currentSlide.howInteresting(slide2);
-                if (interesting >= MAX_INTERESTING) {
-                    counter++;
-                    bestMatchIndex = slides.indexOf(slide2);
-                    break;
-                }
-                if (interesting < matchScore) {
-                    matchScore = interesting;
                     bestMatchIndex = slides.indexOf(slide2);
                 }
             }
