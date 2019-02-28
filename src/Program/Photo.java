@@ -7,4 +7,28 @@ public class Photo {
     public int id;
     public boolean horizontal;
     public List<String> tags = new ArrayList<>();
+
+    public int sameTags(Photo photo) {
+        int number = 0;
+
+        for (String tag : this.tags) {
+            if (photo.tags.contains(tag)) {
+                number++;
+            }
+        }
+
+        return number;
+    }
+
+    public int differentTagsThan(Photo photo) {
+        int number = 0;
+
+        for (String tag : this.tags) {
+            if (!photo.tags.contains(tag)) {
+                number++;
+            }
+        }
+
+        return number;
+    }
 }
