@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class Slide {
     public List<Photo> photos = new ArrayList<>();
+    public boolean inSlidesShow = false;
 
     List<String> getTags() {
         List<String> tags = new ArrayList<>();

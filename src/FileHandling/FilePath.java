@@ -2,9 +2,9 @@ package FileHandling;
 
 class FilePath {
     //private static String FILE_NAME = "test";
-    private static String FILE_NAME = "a_example";
+    //private static String FILE_NAME = "a_example";
     //private static String FILE_NAME = "b_lovely_landscapes";
-    //private static String FILE_NAME = "c_memorable_moments";
+    private static String FILE_NAME = "c_memorable_moments";
     //private static String FILE_NAME = "d_pet_pictures";
     //private static String FILE_NAME = "e_shiny_selfies";
 
