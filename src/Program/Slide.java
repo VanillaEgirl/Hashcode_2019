@@ -6,24 +6,31 @@ import java.util.stream.Collectors;
 
 public class Slide {
     public List<Photo> photos = new ArrayList<>();
-    public boolean inSlidesShow = false;
+    public List<String> tags = new ArrayList<>();
 
-    List<String> getTags() {
+    public Slide(Photo photo) {
+        this.photos.add(photo);
+        tags.addAll(photo.tags);
+    }
+
+    public Slide(Photo photo1, Photo photo2) {
+        this.photos.add(photo1);
+        this.photos.add(photo2);
+
         List<String> tags = new ArrayList<>();
 
-        for (Photo photo : photos) {
-            tags.addAll(photo.tags);
-        }
+        tags.addAll(photo1.tags);
+        tags.addAll(photo2.tags);
 
-        return tags.stream().distinct().collect(Collectors.toList());
+        this.tags = tags.stream().distinct().collect(Collectors.toList());
     }
 
 
     public int sameTags(Slide slide) {
         int number = 0;
 
-        for (String tag : this.getTags()) {
-            if (slide.getTags().contains(tag)) {
+        for (String tag : this.tags) {
+            if (slide.tags.contains(tag)) {
                 number++;
             }
         }
@@ -34,8 +41,8 @@ public class Slide {
     public int differentTagsThan(Slide slide) {
         int number = 0;
 
-        for (String tag : this.getTags()) {
-            if (!slide.getTags().contains(tag)) {
+        for (String tag : this.tags) {
+            if (!slide.tags.contains(tag)) {
                 number++;
             }
         }

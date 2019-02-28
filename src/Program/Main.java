@@ -22,8 +22,7 @@ public class Main {
 
         for (Photo photo : photos) {
             if (photo.horizontal) {
-                Slide slide = new Slide();
-                slide.photos.add(photo);
+                Slide slide = new Slide(photo);
                 slides.add(slide);
             } else {
                 verticalPhotos.add(photo);
@@ -57,12 +56,9 @@ public class Main {
                 }
 
                 if (minIndex != -1) {
-                    Slide slide = new Slide();
-                    slide.photos.add(photo);
-                    photo.alreadyInSlide = true;
-
                     Photo photo2 = verticalPhotos.get(minIndex);
-                    slide.photos.add(photo2);
+                    Slide slide = new Slide(photo, photo2);
+                    photo.alreadyInSlide = true;
                     photo2.alreadyInSlide = true;
 
                     slides.add(slide);
