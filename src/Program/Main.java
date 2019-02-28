@@ -12,13 +12,15 @@ public class Main {
         List<Photo> photos = FileReader.readPhotos();
         Slide slide = new Slide();
         slide.photos.add(photos.get(0));
-        slide.photos.add(photos.get(1));
         Slide slide2 = new Slide();
-        slide2.photos.add(photos.get(2));
         slide2.photos.add(photos.get(3));
+        Slide slide3 = new Slide();
+        slide3.photos.add(photos.get(1));
+        slide3.photos.add(photos.get(2));
         List<Slide> slides = new ArrayList<>();
         slides.add(slide);
         slides.add(slide2);
+        slides.add(slide3);
         FileWriter.writeSlideshow(slides);
     }
 
