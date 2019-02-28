@@ -1,8 +1,8 @@
 package FileHandling;
 
 class FilePath {
-    private static String FILE_NAME = "testMatrix";
-    //private static String FILE_NAME = "a_example";
+    //private static String FILE_NAME = "test";
+    private static String FILE_NAME = "a_example";
     //private static String FILE_NAME = "b_small";
     //private static String FILE_NAME = "c_medium";
     //private static String FILE_NAME = "d_big";
@@ -10,7 +10,7 @@ class FilePath {
     private static String RESOURCE_DIR = "resource\\";
 
     private static String RESOURCE_EXT = ".possible";
-    private static String INPUT_EXT = ".in";
+    private static String INPUT_EXT = ".txt";
     private static String OUTPUT_EXT = ".out";
 
     static String resourcePath = RESOURCE_DIR + FILE_NAME + RESOURCE_EXT;

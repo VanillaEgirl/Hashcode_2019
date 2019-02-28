@@ -1,12 +1,14 @@
 package FileHandling;
 
+import Program.Photo;
+
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FileReader {
-    public static List<String> readLines() {
-        List<String> lines = new ArrayList<>();
+    public static List<Photo> readLines() {
+        List<Photo> photos = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new java.io.FileReader(FilePath.inputPath));
 
@@ -17,52 +19,31 @@ public class FileReader {
             for (int i = 0; i < numberOfRows; i++) {
                 line = reader.readLine();
                 System.out.println(line);
-                lines.add(line);
+                Photo photo = parseLine(line);
+                photos.add(photo);
             }
 
             reader.close();
 
-            return lines;
+            return photos;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static int[][] readMatrix() {
-        try {
-            BufferedReader reader = new BufferedReader(new java.io.FileReader(FilePath.inputPath));
-
-            String line = reader.readLine();
-            String fractals[] = line.split(" ");
-            int numberOfRows = Integer.parseInt(fractals[0]);
-            int numberOfColumns = Integer.parseInt(fractals[1]);
-            int[][] matrix = new int[numberOfRows][numberOfColumns];
-
-            for (int i = 0; i < numberOfRows; i++) {
-                line = reader.readLine();
-                System.out.println(line);
-                matrix[i] = parseLine(line, numberOfColumns);
-            }
-
-            reader.close();
-
-            return matrix;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    private static int[] parseLine(String line, int numberOfColumns) {
-        int[] lineMatrix = new int[numberOfColumns];
+    private static Photo parseLine(String line) {
         String fractals[] = line.split(" ");
+        Photo photo = new Photo();
+        photo.horizontal = fractals[0].equals("H");
 
-        for (int i = 0; i < numberOfColumns; i++) {
-            lineMatrix[i] = Integer.parseInt(fractals[i]);
+        int numberOfTags = Integer.parseInt(fractals[1]);
+
+        for (int i = 0; i < numberOfTags; i++) {
+            photo.tags.add(fractals[i + 2]);
         }
 
-        return lineMatrix;
+        return photo;
     }
 
     public static void readResources() {
