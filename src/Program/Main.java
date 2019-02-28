@@ -5,17 +5,21 @@ import FileHandling.FileWriter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
+    private static Random random = new Random();
 
-    private static final int SAME_TAGS = 2;
-    private static final int MIN_WASTE = 20;
+    private static final int SAME_TAGS = 1;
+    private static final int MIN_WASTE = 2;
+    private static final int MAX_INTERESTING = 2;
     private static final int CHUNK_SIZE = 500;
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
         List<Slide> slides = getSlides(photos);
         System.out.println("slides generated");
+        //slides = shuffleSlides(slides);
         List<Slide> orderedSlides = new ArrayList<>();
         int i;
         for (i = 0; i < slides.size() / CHUNK_SIZE; i++) {
@@ -85,6 +89,24 @@ public class Main {
         return slides;
     }
 
+    private static List<Slide> shuffleSlides(List<Slide> slides) {
+        List<Slide> shuffledSlides = new ArrayList<>();
+
+        List<Slide> remainingSlides = new ArrayList<>();
+        remainingSlides.addAll(slides);
+
+        int slidesSize = slides.size();
+
+        for (int i = 0; i < slidesSize; i++) {
+            int randomNumber = random.nextInt(slidesSize);
+            Slide currentSlide = slides.get(randomNumber);
+            shuffledSlides.add(currentSlide);
+            remainingSlides.remove(currentSlide);
+        }
+
+        return shuffledSlides;
+    }
+
     private static List<Slide> orderSlides(List<Slide> slides) {
         List<Slide> orderedSlides = new ArrayList<>();
 
@@ -103,13 +125,48 @@ public class Main {
                 int interesting = currentSlide.howInteresting(slide2);
                 int waste = currentSlide.howWasting(slide2);
                 double matchscore = interesting - ((double)waste)/3;
-                if (matchscore > (0)) {
+                if (matchscore > 0) {
                     counter++;
                     bestMatchIndex = slides.indexOf(slide2);
                     break;
                 }
                 if (matchscore > bestMatchScore) {
                     bestMatchScore = matchscore;
+                    bestMatchIndex = slides.indexOf(slide2);
+                }
+            }
+            currentSlide = slides.get(bestMatchIndex);
+            orderedSlides.add(currentSlide);
+            remainingSlides.remove(currentSlide);
+        }
+        System.out.println(counter);
+
+        return orderedSlides;
+    }
+
+    private static List<Slide> orderSlidesSpecial(List<Slide> slides) {
+        List<Slide> orderedSlides = new ArrayList<>();
+
+        List<Slide> remainingSlides = new ArrayList<>();
+        remainingSlides.addAll(slides);
+
+        Slide currentSlide = slides.get(0);
+        orderedSlides.add(currentSlide);
+        remainingSlides.remove(currentSlide);
+
+        int counter = 0;
+        while (remainingSlides.size() > 0) {
+            int matchScore = 999999;
+            int bestMatchIndex = -1;
+            for (Slide slide2 : remainingSlides) {
+                int interesting = currentSlide.howInteresting(slide2);
+                if (interesting >= MAX_INTERESTING) {
+                    counter++;
+                    bestMatchIndex = slides.indexOf(slide2);
+                    break;
+                }
+                if (interesting < matchScore) {
+                    matchScore = interesting;
                     bestMatchIndex = slides.indexOf(slide2);
                 }
             }
