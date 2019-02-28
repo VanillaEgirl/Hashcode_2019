@@ -14,12 +14,12 @@ public class Main {
     private static final int MIN_WASTE = 2;
     private static final int MAX_INTERESTING = 5;
     private static final double WEIGHT = 2;
-    private static final double MAX_MATCH_SCORE = 6;
-    private static final int CHUNK_SIZE = 1000;
+    private static final double MAX_MATCH_SCORE = 4;
+    private static final int CHUNK_SIZE = 800;
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
-        List<Slide> slides = getSlides(photos);
+        List<Slide> slides = FileReader.readSlides(photos);
         System.out.println("slides generated");
         slides = shuffleSlides(slides);
         List<Slide> orderedSlides = new ArrayList<>();
