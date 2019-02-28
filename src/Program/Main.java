@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<String> lines = FileReader.readLines();
-        System.out.println();
+        System.out.println("Hallo du Schneckli!");
         FileWriter.writeLines(lines);
     }
 }
