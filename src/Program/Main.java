@@ -26,6 +26,8 @@ public class Main {
             orderedSlides.addAll(orderSlides(slideChunk));
         }
         FileWriter.writeSlideshow(orderedSlides);
+        System.out.println();
+        System.out.println(calculateScore(orderedSlides));
     }
 
     private static List<Slide> getSlides(List<Photo> photos) {
@@ -111,5 +113,19 @@ public class Main {
         }
 
         return orderedSlides;
+    }
+
+    private static int calculateScore(List<Slide> slides) {
+        int score = 0;
+
+        Slide lastSilde = slides.get(0);
+
+        for (int i = 1; i < slides.size(); i++) {
+            Slide slide = slides.get(i);
+            score += lastSilde.howInteresting(slide);
+            lastSilde = slide;
+        }
+
+        return score;
     }
 }
