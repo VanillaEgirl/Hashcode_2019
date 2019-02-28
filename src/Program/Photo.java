@@ -6,6 +6,7 @@ import java.util.List;
 public class Photo {
     public int id;
     public boolean horizontal;
+    public boolean alreadyInSlide = false;
     public List<String> tags = new ArrayList<>();
 
     public int sameTags(Photo photo) {

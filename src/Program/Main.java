@@ -10,47 +10,61 @@ public class Main {
 
     public static void main(String[] args) {
         List<Photo> photos = FileReader.readPhotos();
-        Slide slide = new Slide();
-        slide.photos.add(photos.get(0));
-        Slide slide2 = new Slide();
-        slide2.photos.add(photos.get(3));
-        Slide slide3 = new Slide();
-        slide3.photos.add(photos.get(1));
-        slide3.photos.add(photos.get(2));
-        List<Slide> slides = new ArrayList<>();
-        slides.add(slide);
-        slides.add(slide2);
-        slides.add(slide3);
-        FileWriter.writeSlideshow(slides);
+        getSlides(photos);
+        //FileWriter.writeSlideshow(slides);
     }
 
-    public static int howInteresting(Slide slide1, Slide slide2) {
-        int onlySlide1 = 0;
-        int onlySlide2 = 0;
-        int both = 0;
-        int minimum;
+    private static List<Slide> getSlides(List<Photo> photos) {
+        List<Slide> slides = new ArrayList<>();
+        List<Photo> verticalPhotos = new ArrayList<>();
 
-        List<String> tags1 = slide1.getTags();
-        List<String> tags2 = slide2.getTags();
-
-        for (String tag : tags1) {
-            if (tags2.contains(tag)) {
-                both++;
+        for (Photo photo : photos) {
+            if (photo.horizontal) {
+                Slide slide = new Slide();
+                slide.photos.add(photo);
+                slides.add(slide);
             } else {
-                onlySlide1++;
+                verticalPhotos.add(photo);
             }
         }
 
-        for (String tag : tags2) {
-            if (!tags1.contains(tag)) {
-                onlySlide1++;
+        List<Slide> verticalSlides = pairVerticalSlides(verticalPhotos);
+        slides.addAll(verticalSlides);
+
+        return slides;
+    }
+
+    private static List<Slide> pairVerticalSlides(List<Photo> verticalPhotos) {
+        List<Slide> slides = new ArrayList<>();
+
+        for(Photo photo : verticalPhotos) {
+            if(!photo.alreadyInSlide) {
+                int minValue = 99999;
+                int minIndex = -1;
+                for (Photo photo2 : verticalPhotos) {
+                    int sameTags = 99999;
+                    if (!photo2.alreadyInSlide) {
+                        sameTags = photo.sameTags(photo2);
+                        if(sameTags<minValue) {
+                            minIndex = verticalPhotos.indexOf(photo2);
+                        }
+                    }
+                    if(sameTags == 0) {
+                        break;
+                    }
+                }
+
+                Slide slide = new Slide();
+                slide.photos.add(photo);
+                photo.alreadyInSlide = true;
+                if(minIndex != -1) {
+                    Photo photo2 = verticalPhotos.get(minIndex);
+                    slide.photos.add(photo2);
+                    photo2.alreadyInSlide = true;
+                }
             }
         }
 
-        minimum = both;
-        if (onlySlide1 < minimum) minimum = onlySlide1;
-        if (onlySlide2 < minimum) minimum = onlySlide2;
-
-        return minimum;
+        return slides;
     }
 }
